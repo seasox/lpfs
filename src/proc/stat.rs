@@ -148,7 +148,7 @@ impl Index<usize> for Cpu {
             7 => &self.steal,
             8 => &self.guest,
             9 => &self.guest_nice,
-            x => panic!(format!("Cpu has 10 items, but index {}", x)),
+            x => panic!("Cpu has 10 items, but index {}", x),
         }
     }
 }
