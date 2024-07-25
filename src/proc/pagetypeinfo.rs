@@ -49,7 +49,7 @@ define_struct! {
         /// (node, zone, type, counts)
         free_pages: Vec<(i32, String, String, [u64;11])>,
         /// (node, zone, counts)
-        blocks_type_number: Vec<(i32, String, [u64;6])>,
+        blocks_type_number: Vec<(i32, String, Vec<u64>)>,
     }
 }
 
@@ -98,11 +98,11 @@ impl FromStr for FreePage {
 struct BlockTypeNumber {
     node: i32,
     zone: String,
-    counts: [u64; 6],
+    counts: Vec<u64>,
 }
 
 impl BlockTypeNumber {
-    fn into_tuple(self) -> (i32, String, [u64; 6]) {
+    fn into_tuple(self) -> (i32, String, Vec<u64>) {
         (self.node, self.zone, self.counts)
     }
 }
@@ -112,13 +112,17 @@ impl FromStr for BlockTypeNumber {
 
     fn from_str(s: &str) -> Result<BlockTypeNumber, crate::ProcErr> {
         let columns: Vec<&str> = s.split_ascii_whitespace().collect();
-        if columns.len() != 10 {
-            return Err("no enough fields to parse blocks type number".into());
+        if columns.len() != 9 {
+            return Err(format!(
+                "no enough fields ({}) to parse blocks type number",
+                columns.len()
+            )
+            .into());
         }
 
         let node = columns[1].trim_end_matches(',').parse::<i32>()?;
         let zone = columns[3].to_string();
-        let mut counts = [0; 6];
+        let mut counts = vec![0; columns.len() - 4];
         for (c, v) in counts.iter_mut().zip(columns[4..].iter()) {
             *c = v.parse::<u64>()?;
         }
