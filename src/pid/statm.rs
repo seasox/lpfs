@@ -46,40 +46,47 @@ impl std::str::FromStr for Statm {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let mut s_iter = s.split_ascii_whitespace();
-        let size = s_iter.next()
+        let size = s_iter
+            .next()
             .ok_or_else(|| Self::Err::from("size not found"))?
             .parse::<usize>()?;
-        let resident = s_iter.next()
+        let resident = s_iter
+            .next()
             .ok_or_else(|| Self::Err::from("resident not found"))?
             .parse::<usize>()?;
-        let shared = s_iter.next()
+        let shared = s_iter
+            .next()
             .ok_or_else(|| Self::Err::from("shared not found"))?
             .parse::<usize>()?;
-        let text = s_iter.next()
+        let text = s_iter
+            .next()
             .ok_or_else(|| Self::Err::from("text not found"))?
             .parse::<usize>()?;
-        let lib = s_iter.next()
+        let lib = s_iter
+            .next()
             .ok_or_else(|| Self::Err::from("lib not found"))?
             .parse::<usize>()?;
-        let data = s_iter.next()
+        let data = s_iter
+            .next()
             .ok_or_else(|| Self::Err::from("data not found"))?
             .parse::<usize>()?;
-        let dt = s_iter.next()
+        let dt = s_iter
+            .next()
             .ok_or_else(|| Self::Err::from("dt not found"))?
             .parse::<usize>()?;
         Ok(Statm {
-            size    ,
+            size,
             resident,
-            shared  ,
-            text    ,
-            lib     ,
-            data    ,
-            dt      ,
+            shared,
+            text,
+            lib,
+            data,
+            dt,
         })
-    } 
+    }
 }
 
-pid_instance_impl!{
+pid_instance_impl! {
     statm_of, "statm", Statm,
     statm_self, statm_of_of, statm_self_of, statm_self_self
 }
