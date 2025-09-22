@@ -49,7 +49,7 @@ impl FromStr for Lock {
         }
         let major = usize::from_str_radix(file[0], 16)?;
         let minor = usize::from_str_radix(file[1], 16)?;
-        let inode = usize::from_str_radix(file[2], 10)?;
+        let inode = file[2].parse::<usize>()?;
         let start = columns[6].parse::<usize>()?;
         let end = if "EOF" == columns[7] {
             None
