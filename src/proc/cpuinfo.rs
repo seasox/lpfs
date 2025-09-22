@@ -205,20 +205,20 @@ impl FromStr for Processor {
             .get("flags")
             .map(|s| {
                 s.split(' ')
-                    .filter(|item| *item != "")
+                    .filter(|item| !item.is_empty())
                     .map(String::from)
                     .collect()
             })
-            .unwrap_or_else(|| vec![]);
+            .unwrap_or_else(std::vec::Vec::new);
         let bugs = map
             .get("bugs")
             .map(|s| {
                 s.split(' ')
-                    .filter(|item| *item != "")
+                    .filter(|item| !item.is_empty())
                     .map(String::from)
                     .collect()
             })
-            .unwrap_or_else(|| vec![]);
+            .unwrap_or_else(std::vec::Vec::new);
 
         unwrap_number!(bogomips, "bogomips", f64);
         unwrap_opt_number!(tlb_size, "TLB size", i32);
@@ -238,11 +238,11 @@ impl FromStr for Processor {
             .get("power management")
             .map(|s| {
                 s.split(' ')
-                    .filter(|item| *item != "")
+                    .filter(|item| !item.is_empty())
                     .map(String::from)
                     .collect()
             })
-            .unwrap_or_else(|| vec![]);
+            .unwrap_or_else(std::vec::Vec::new);
 
         Ok(Processor {
             processor,

@@ -357,7 +357,7 @@ impl FromStr for Stat {
     type Err = crate::ProcErr;
 
     fn from_str(s: &str) -> Result<Stat, crate::ProcErr> {
-        let columns_: Vec<&str> = s.split(|c| c == '(' || c == ')').collect();
+        let columns_: Vec<&str> = s.split(['(', ')']).collect();
         if columns_.len() != 3 {
             return Err("no enough fields to parse a Stat".into());
         }
@@ -391,7 +391,7 @@ impl FromStr for Stat {
 
         unwrap_integer!(columns[0], i32, pid);
         let comm = columns[1].to_string();
-        let state = columns[2].chars().next().ok_or_else(|| "stat is empty")?;
+        let state = columns[2].chars().next().ok_or("stat is empty")?;
         unwrap_integer!(columns[3], i32, ppid);
         unwrap_integer!(columns[4], i32, pgrp);
         unwrap_integer!(columns[5], i32, session);

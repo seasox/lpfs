@@ -39,8 +39,8 @@ pub fn thread_self() -> Result<PathBuf> {
 pub fn self_tid() -> Result<u32> {
     let path = std::fs::read_link("/proc/thread-self")?;
     let path_str = path.display().to_string();
-    let tid_str_iter = path_str.split('/');
-    let tid_str = tid_str_iter.last().unwrap_or_default();
+    let mut tid_str_iter = path_str.split('/');
+    let tid_str = tid_str_iter.next_back().unwrap_or_default();
     let tid = tid_str.parse::<u32>()?;
     Ok(tid)
 }

@@ -153,8 +153,8 @@ impl std::str::FromStr for Map {
         if addrs.len() != 2 {
             return Err("invalid address".into());
         }
-        let start = usize::from_str_radix(&addrs[0], 16)?;
-        let end = usize::from_str_radix(&addrs[1], 16)?;
+        let start = usize::from_str_radix(addrs[0], 16)?;
+        let end = usize::from_str_radix(addrs[1], 16)?;
         let address = (start, end);
 
         let perms_str = columns
@@ -167,7 +167,7 @@ impl std::str::FromStr for Map {
                 break;
             }
         }
-        if perms == "" {
+        if perms.is_empty() {
             return Err("invalid perms".into());
         }
 
@@ -184,8 +184,8 @@ impl std::str::FromStr for Map {
         if addrs.len() != 2 {
             return Err("invalid dev".into());
         }
-        let major = usize::from_str_radix(&addrs[0], 16)?;
-        let minor = usize::from_str_radix(&addrs[1], 16)?;
+        let major = usize::from_str_radix(addrs[0], 16)?;
+        let minor = usize::from_str_radix(addrs[1], 16)?;
         let dev = (major, minor);
 
         let inode = columns

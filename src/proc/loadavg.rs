@@ -48,7 +48,7 @@ impl FromStr for LoadAvg {
     type Err = crate::ProcErr;
 
     fn from_str(s: &str) -> Result<LoadAvg, crate::ProcErr> {
-        let columns: Vec<&str> = s.split(|c| c == ' ' || c == '/').collect();
+        let columns: Vec<&str> = s.split([' ', '/']).collect();
         if columns.len() != 6 {
             let emsg = format!("LoadAvg has 5 fields but got {}", columns.len());
             return Err(emsg.into());

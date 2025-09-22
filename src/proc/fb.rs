@@ -21,7 +21,7 @@ impl FromStr for Fb {
         let mut columns = value.split_ascii_whitespace();
         let device = columns
             .next()
-            .ok_or_else(|| "device number not found")?
+            .ok_or("device number not found")?
             .parse::<usize>()?;
         let drivers = columns.map(|s: &str| s.to_string()).collect();
         Ok(Fb { device, drivers })

@@ -102,7 +102,7 @@ impl FromStr for Apm {
 
         let remain_percent = {
             match columns[6].trim_end_matches('%').parse::<i8>()? {
-                x if x <= 100 && x >= 0 => Some(x as u8),
+                x if (0..=100).contains(&x) => Some(x as u8),
                 _ => None,
             }
         };

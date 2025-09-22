@@ -35,7 +35,7 @@ impl FromStr for IoMem {
 
     fn from_str(s: &str) -> Result<IoMem, Self::Err> {
         let items: Vec<&str> = s
-            .splitn(3, |c| c == '-' || c == ':')
+            .splitn(3, ['-', ':'])
             .map(|s| s.trim())
             .collect();
         if items.len() != 3 {

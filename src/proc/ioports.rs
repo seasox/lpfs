@@ -40,7 +40,7 @@ impl FromStr for IoPort {
 
     fn from_str(s: &str) -> Result<IoPort, Self::Err> {
         let items: Vec<&str> = s
-            .splitn(3, |c| c == '-' || c == ':')
+            .splitn(3, ['-', ':'])
             .map(|s| s.trim())
             .collect();
         if items.len() != 3 {
