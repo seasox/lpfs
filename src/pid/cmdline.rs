@@ -52,7 +52,7 @@ mod test {
         };
         assert_eq!(correct, source.parse::<Cmdline>().unwrap());
 
-        let source = "abc\01\02";
+        let source = "abc\x001\x002";
         let correct = Cmdline {
             cmd: "abc".to_string(),
             args: vec!["1".to_string(), "2".to_string()],

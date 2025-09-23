@@ -39,10 +39,7 @@ impl FromStr for IoPort {
     type Err = crate::ProcErr;
 
     fn from_str(s: &str) -> Result<IoPort, Self::Err> {
-        let items: Vec<&str> = s
-            .splitn(3, ['-', ':'])
-            .map(|s| s.trim())
-            .collect();
+        let items: Vec<&str> = s.splitn(3, ['-', ':']).map(|s| s.trim()).collect();
         if items.len() != 3 {
             return Err("require three items at least to parse ioport".into());
         }

@@ -34,10 +34,7 @@ impl FromStr for IoMem {
     type Err = crate::ProcErr;
 
     fn from_str(s: &str) -> Result<IoMem, Self::Err> {
-        let items: Vec<&str> = s
-            .splitn(3, ['-', ':'])
-            .map(|s| s.trim())
-            .collect();
+        let items: Vec<&str> = s.splitn(3, ['-', ':']).map(|s| s.trim()).collect();
         if items.len() != 3 {
             return Err("require three items at least to parse iomem".into());
         }
