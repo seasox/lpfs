@@ -14,4 +14,5 @@ repository = "https://github.com/pearzl/lpfs"
 documentation = "https://docs.rs/crate/lpfs"
 
 [dependencies]
+thiserror = "2.0.16"
 
